@@ -7,61 +7,110 @@ html {
 }
 
 body {
-	font-family: Arial, Geneva, sans-serif;
+  font-family: Arial, Geneva, sans-serif;
 }
 
 a {
-	color: #2772B0;
+  color: #2772B0;
 }
 
 .wrapper {
-	width: 97%;
-	max-width: 1200px;
-	margin: 0 auto;
-	background-color: #fff;
+  width: 97%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #fff;
 }
 
-div img {
-	width: 100%;
-	max-width: 225px; 
-}
-
+/* ---------------- GRID LAYOUT ---------------- */
 
 .row {
-	display: flex;
-	flex-flow: row wrap;
+  display: grid; 
+  grid-template-columns: 1fr; 
+  /* Creates a single column layout by default */
+
+  gap: 20px; 
+  /* Adds spacing between grid items (better than margins) */
+
+  margin-bottom: 20px;
 }
+
+/* ---------------- COLUMN STYLES ---------------- */
 
 [class*="col-"] {
-	margin-left: 4%;
-	flex: 0 0 92%;
+  padding: 15px;
+  border-radius: 8px;
+
+  display: grid;
+  place-items: center;
+  /* NEW: shorthand for align-items + justify-items (centers content) */
 }
 
-
+/* Background colors */
 .col-1 { background-color: #B0E0A8; }
 .col-2 { background-color: #FFDAB9; }
 .col-3 { background-color: #C1E1F0; }
 .col-4 { background-color: #F5D6C6; }
 
-
-@media only screen and (min-width: 480px) {
-  .col-1, .col-2 { flex: 0 0 44%; }
-  .col-3 { flex: 0 0 92%; }
-}
-
-
-@media only screen and (min-width: 768px) {
-  .col-1 { flex: 0 0 20%; }
-  .col-2 { flex: 0 0 44%; }
-  .col-3 { flex: 0 0 68%; }
-  .col-4 { flex: 0 0 92%; }
-
- 
-  .row:last-child .col-1 { flex: 0 0 18%; }
-}
-
+/* ---------------- IMAGES ---------------- */
 
 img {
   max-width: 100%;
   height: auto;
+}
+
+/* ---------------- TABLET VIEW ---------------- */
+
+@media (min-width: 480px) {
+  .row {
+    grid-template-columns: repeat(2, 1fr);
+    /* Creates 2 equal columns */
+  }
+
+  .col-3, .col-4 {
+    grid-column: span 2;
+    /* Makes these items stretch across both columns */
+  }
+}
+
+/* ---------------- DESKTOP VIEW ---------------- */
+
+@media (min-width: 768px) {
+  .row {
+    grid-template-columns: repeat(4, 1fr);
+    /* Creates 4 equal columns */
+  }
+
+  .col-1 {
+    grid-column: span 1;
+  }
+
+  .col-2 {
+    grid-column: span 2;
+  }
+
+  .col-3 {
+    grid-column: span 3;
+  }
+
+  .col-4 {
+    grid-column: span 4;
+  }
+
+  /* NEW PROPERTY */
+  .row {
+    grid-auto-rows: minmax(200px, auto);
+    /* Ensures rows are at least 200px tall but expand if needed */
+  }
+}
+
+/* ---------------- OPTIONAL ADVANCED FEATURE ---------------- */
+
+/* Example of grid-template-areas (not required but shows new concept) */
+.featured-layout {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "sidebar content";
+  grid-template-columns: 1fr 3fr;
+  gap: 20px;
 }
